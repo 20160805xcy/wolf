@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xcy.wolf.mapper.CustomerChildMapper">
+  <resultMap id="BaseResultMap" type="com.xcy.wolf.model.CustomerChild">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="login_pswd" jdbcType="VARCHAR" property="loginPswd" />
+    <result column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="supplier_id" jdbcType="INTEGER" property="supplierId" />
+    <result column="crt_by" jdbcType="INTEGER" property="crtBy" />
+    <result column="crt_by_name" jdbcType="VARCHAR" property="crtByName" />
+    <result column="crt_dtm" jdbcType="TIMESTAMP" property="crtDtm" />
+    <result column="mdy_by" jdbcType="INTEGER" property="mdyBy" />
+    <result column="mdy_by_name" jdbcType="VARCHAR" property="mdyByName" />
+    <result column="mdy_dtm" jdbcType="TIMESTAMP" property="mdyDtm" />
+    <result column="voided" jdbcType="INTEGER" property="voided" />
+    <result column="voided_by" jdbcType="INTEGER" property="voidedBy" />
+    <result column="voided_by_name" jdbcType="VARCHAR" property="voidedByName" />
+    <result column="voided_dtm" jdbcType="TIMESTAMP" property="voidedDtm" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="specialTemplate" jdbcType="INTEGER" property="specialtemplate" />
+    <result column="isCheckAddr" jdbcType="INTEGER" property="ischeckaddr" />
+    <result column="activate_by" jdbcType="VARCHAR" property="activateBy" />
+    <result column="activate_dtm" jdbcType="TIMESTAMP" property="activateDtm" />
+    <result column="isReceipt" jdbcType="INTEGER" property="isreceipt" />
+    <result column="isSendEmail" jdbcType="INTEGER" property="issendemail" />
+    <result column="isAuth" jdbcType="INTEGER" property="isauth" />
+    <result column="code" jdbcType="INTEGER" property="code" />
+    <result column="role" jdbcType="INTEGER" property="role" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="showVersion" jdbcType="VARCHAR" property="showversion" />
+    <result column="emailTime" jdbcType="TIMESTAMP" property="emailtime" />
+    <result column="isEditor" jdbcType="INTEGER" property="iseditor" />
+    <result column="emaila" jdbcType="VARCHAR" property="emaila" />
+    <result column="emailb" jdbcType="VARCHAR" property="emailb" />
+    <result column="isSure" jdbcType="INTEGER" property="issure" />
+    <result column="showMessage" jdbcType="VARCHAR" property="showmessage" />
+    <result column="showPointNum" jdbcType="INTEGER" property="showpointnum" />
+  </resultMap>
+</mapper>
