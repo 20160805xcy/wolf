@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <%--
   Created by IntelliJ IDEA.
   User: xcy
@@ -17,7 +18,7 @@
 <body>
 
 <div class="container">
-    <div class="panel panel-default">
+    <div id="content-all" class="panel panel-default">
         <div class="panel-heading text-center">
             <h2>客户列表页</h2>
         </div>
@@ -54,26 +55,38 @@
                 </c:forEach>
                 </tbody>
             </table>
-            ${customerChildList.list}
-            --共${total}条--共${pages}页--当前第${pageNum}页
-            <ul class="pagination pagination-lg">
-                <li><a href="#">&laquo;</a></li>
-                <li><a href="/customer/toListAllCustomer">1</a></li>
-                <li><a href="/customer/toListAllCustomer">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&raquo;</a></li>
-            </ul><br>
         </div>
+        <div class="text-center">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li>
+                        <a id="previousPage" href="/customer/aa?rows=4&page=+${pageNum-1}+" aria-label="Previous">
+                            <span aria-hidden="true">上一页</span>
+                        </a>
+                    </li>
+                    <li><a id="homePage" href="/customer/aa?rows=4">1</a></li>
+                    <li class="active"><a >${pageNum}</a></li>
+                    <li><a id="lastPage" href="/customer/aa?rows=4&page=+${pages}+">${pages}</a></li>
+                    <li>
+                        <a id="nextPage" href="/customer/aa?rows=4&page=+${pageNum+1}+"  aria-label="Next">
+                            <span aria-hidden="true">下一页</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
     </div>
 </div>
 
-</body>
 
+
+</body>
 <!-- jQuery文件.务必在bootstrap.min.js 之前引入 -->
 <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 </body>
 </html>
