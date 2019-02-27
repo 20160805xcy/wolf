@@ -44,4 +44,9 @@
     <result column="showMessage" jdbcType="VARCHAR" property="showmessage" />
     <result column="showPointNum" jdbcType="INTEGER" property="showpointnum" />
   </resultMap>
+
+  <select id="selectByLogInNameAndPassWord" parameterType="map" resultType="com.xcy.wolf.model.CustomerChild">
+    select * from customer_child where login_name = #{loginName} and login_pswd = #{passWord}
+  </select>
+
 </mapper>

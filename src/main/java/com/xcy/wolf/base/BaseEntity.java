@@ -23,7 +23,8 @@ public class BaseEntity {
     @Transient
     private Integer page = 1;
 
+    /**layerUI查询时候要求传limit,而不是rows**/
     @Transient
-    private Integer rows = 3;
+    private Integer limit = 3;
 
 }

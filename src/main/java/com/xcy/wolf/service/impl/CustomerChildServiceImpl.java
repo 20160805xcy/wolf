@@ -6,11 +6,10 @@ import com.xcy.wolf.mapper.CustomerChildMapper;
 import com.xcy.wolf.model.CustomerChild;
 import com.xcy.wolf.qo.CustomerQo;
 import com.xcy.wolf.service.CustomerChildService;
-import com.xcy.wolf.wrapper.BackResult;
+import com.xcy.wolf.util.Base64Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,8 +44,19 @@ public class CustomerChildServiceImpl implements CustomerChildService {
 
     @Override
     public Object listByPage(CustomerQo qo) {
-        PageHelper.startPage(qo.getPage(), qo.getRows());
+        PageHelper.startPage(qo.getPage(), qo.getLimit());
         List<CustomerChild> customerChildList = customerChildMapper.selectAll();
         return new PageInfo<CustomerChild>(customerChildList);
+    }
+
+    @Override
+    public CustomerChild selectById(Integer id) {
+        return customerChildMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public CustomerChild selectByLogInNameAndPassWord(String loginName, String passWord) {
+        String passWordBae64 = Base64Utils.getBase64(passWord);
+        return customerChildMapper.selectByLogInNameAndPassWord(loginName, passWordBae64);
     }
 }

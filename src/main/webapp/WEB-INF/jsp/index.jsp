@@ -12,6 +12,7 @@
     <title>Title</title>
 </head>
 <body>
-<script>window.location.href='/customer/toListAllCustomer';</script>
+<%--<script>window.location.href='/customer/toListAllCustomer';</script>--%>
+<script>window.location.href='/wolf/customer/toLogIn';</script>
 </body>
 </html>

@@ -13,7 +13,12 @@ import java.util.List;
  * @since V1.0.0
  */
 public interface CustomerChildService {
+
     List<CustomerChild> listAllCustomer();
 
+    CustomerChild selectByLogInNameAndPassWord(String loginName, String passWord);
+
     Object listByPage(CustomerQo qo);
+
+    CustomerChild selectById(Integer id);
 }
