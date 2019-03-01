@@ -1,6 +1,7 @@
 package com.xcy.wolf.filter;
 
 import com.xcy.wolf.common.util.DateUtils;
+import com.xcy.wolf.util.IpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -44,13 +45,13 @@ public class AuthorityFilter extends HttpServlet implements Filter {
         // 获取当前访问路径
         String url = servletRequest.getRequestURI();
         //记录用户操作
-        log.info("访问客户ip:{},访问时间:{},访问url:{})", getRealIp(servletRequest), DateUtils.parse2LongString(new Date()), url);
+        log.info("访问客户ip:{},访问时间:{},访问url:{})", IpUtil.getRealIp(servletRequest), DateUtils.parse2LongString(new Date()), url);
         url = url.substring(url.lastIndexOf("/") + 1);
         log.info("访问的url为:{}", url);
 
         Boolean isExclude = false;
         // 不需要过滤的请求
-        String[] excludeUrlArr = {"logIn", "toLogIn", "favicon.ico"};
+        String[] excludeUrlArr = {"logIn", "toLogIn", "favicon.ico", "htmleaf-demo.css"};
         for (String excludeUrl : excludeUrlArr) {
             if (url.equals(excludeUrl)) {
                 isExclude = true;
@@ -95,49 +96,5 @@ public class AuthorityFilter extends HttpServlet implements Filter {
             }
         }
     }
-
-    /**
-     * 获取操作用户ip
-     * @param request
-     * @return
-     */
-    private String getRealIp(HttpServletRequest request) {
-        String ip = null;
-
-        //X-Forwarded-For：Squid 服务代理
-        String ipAddresses = request.getHeader("X-Forwarded-For");
-
-        if (ipAddresses == null || ipAddresses.length() == 0 || "unknown".equalsIgnoreCase(ipAddresses)) {
-            //Proxy-Client-IP：apache 服务代理
-            ipAddresses = request.getHeader("Proxy-Client-IP");
-        }
-
-        if (ipAddresses == null || ipAddresses.length() == 0 || "unknown".equalsIgnoreCase(ipAddresses)) {
-            //WL-Proxy-Client-IP：webLogic 服务代理
-            ipAddresses = request.getHeader("WL-Proxy-Client-IP");
-        }
-
-        if (ipAddresses == null || ipAddresses.length() == 0 || "unknown".equalsIgnoreCase(ipAddresses)) {
-            //HTTP_CLIENT_IP：有些代理服务器
-            ipAddresses = request.getHeader("HTTP_CLIENT_IP");
-        }
-
-        if (ipAddresses == null || ipAddresses.length() == 0 || "unknown".equalsIgnoreCase(ipAddresses)) {
-            //X-Real-IP：nginx服务代理
-            ipAddresses = request.getHeader("X-Real-IP");
-        }
-
-        //有些网络通过多层代理，那么获取到的ip就会有多个，一般都是通过逗号（,）分割开来，并且第一个ip为客户端的真实IP
-        if (ipAddresses != null && ipAddresses.length() != 0) {
-            ip = ipAddresses.split(",")[0];
-        }
-
-        //还是不能获取到，最后再通过request.getRemoteAddr();获取
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ipAddresses)) {
-            ip = request.getRemoteAddr();
-        }
-        return ip;
-    }
-
 
 }
