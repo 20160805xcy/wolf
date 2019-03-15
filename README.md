@@ -10,4 +10,7 @@
     - 简单的jquery插件实现.
     - 使用layer-ui前端框架实现.
 5. 使用filter实现url拦截.如果用户没有登录(session不存在)则不能进行访问后端url访问.直接重定向到登录页面,提示用户进行登录.
-6. 
+6. 记录接口调用日志.
+	- 使用切面注解@Aspect + @Pointcut + @Around...
+7. springboot 用监听器统计在线人数
+8. 全局异常拦截

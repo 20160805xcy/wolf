@@ -30,7 +30,7 @@
         <javaClientGenerator targetPackage="com.xcy.wolf.mapper" targetProject="src/main/java"
                              type="XMLMAPPER"/>
 
-        <table tableName="customer_child" domainObjectName="CustomerChild">
+        <table tableName="api_request_log" domainObjectName="ApiRequestLog">
             <!--mysql 配置-->
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
             <!--oracle 配置-->

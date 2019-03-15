@@ -11,6 +11,7 @@ public enum ApiErrorEnum {
     CODE_1(1,"success"),
     API_USER_1(10001,"无法获取请求Request对象"),
     API_USER_2(10002,"无法获取请求Response对象"),
+    API_USER_3(10003,"登录啦---自定义异常"),
     ;
 
 

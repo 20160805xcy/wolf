@@ -1,6 +1,7 @@
 package com.xcy.wolf.wrapper;
 
 import com.github.pagehelper.PageInfo;
+import com.xcy.wolf.enums.ApiErrorEnum;
 
 /**
  * @author xcy
@@ -29,6 +30,11 @@ public class BackResult {
         this.code = code;
         this.msg = msg;
         this.data = data;
+    }
+
+    public BackResult(ApiErrorEnum apiErrorEnum) {
+        this.code = apiErrorEnum.getCode();
+        this.msg = apiErrorEnum.getDescription();
     }
 
     /**
@@ -61,6 +67,10 @@ public class BackResult {
     /** 返回失败 错误码+错误消息 */
     public static BackResult failureBack(String message) {
         return new BackResult(FAILURE_CODE, message, null);
+    }
+
+    public static BackResult failureBack(ApiErrorEnum apiErrorEnum){
+        return new BackResult(apiErrorEnum);
     }
 
     public Integer getCode() {

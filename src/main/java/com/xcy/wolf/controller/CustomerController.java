@@ -1,21 +1,26 @@
 package com.xcy.wolf.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.xcy.wolf.enums.ApiErrorEnum;
+import com.xcy.wolf.exception.ApiException;
 import com.xcy.wolf.model.CustomerChild;
 import com.xcy.wolf.qo.CustomerQo;
 import com.xcy.wolf.service.CustomerChildService;
 import com.xcy.wolf.wrapper.BackResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 /**
  * @author xcy
@@ -23,6 +28,7 @@ import javax.servlet.http.HttpSession;
  * @description customerController
  * @since V1.0.0
  */
+@Slf4j
 @Controller
 @RequestMapping("customer")
 public class CustomerController {
@@ -61,18 +67,42 @@ public class CustomerController {
      * @return 登录成功则重定向到用户列表页, 否则重定向到登录页
      */
     @RequestMapping("logIn")
-    public String logIn(String loginName, String passWord) {
+    public String logIn(String loginName, String passWord, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         CustomerChild customerChild = customerChildService.selectByLogInNameAndPassWord(loginName, passWord);
         if (null != customerChild) {
+
+            //把sessionId记录在浏览器
+            Cookie c = new Cookie("JSESSIONID", URLEncoder.encode(request.getSession().getId(), "utf-8"));
+            c.setPath("/");
+            //先设置cookie有效期为2天,不用担心,session不会保存2天
+            c.setMaxAge(48 * 60 * 60);
+            response.addCookie(c);
             session.setAttribute("customerId", customerChild.getId());
             session.setAttribute("customerName", customerChild.getCustomerName());
             session.setAttribute("loginName", customerChild.getLoginName());
             session.setAttribute("role", customerChild.getRole());
+
+            //设置session有效期(秒)
+            session.setMaxInactiveInterval(60*60);
             return "redirect:/customer/toListAllCustomer";
         } else {
+            if("admin".equals(customerChild.getLoginName())){
+                throw new ApiException(ApiErrorEnum.API_USER_3);
+            }
             return "redirect:/customer/toLogIn";
         }
     }
+
+    /**
+     * 退出登录
+     * @return
+     */
+    @RequestMapping("logOut")
+    public String logOut(){
+        session.invalidate();
+        return "redirect:/customer/toLogIn";
+    }
+
 
     /**
      * 方式一:JSP页面传数据方式

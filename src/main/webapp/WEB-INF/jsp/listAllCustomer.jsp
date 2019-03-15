@@ -79,16 +79,82 @@
         </div>
         <div class="panel panel-default">
             <button type="button" onclick="window.location.href='/layUI/goLayUI'" class="btn btn-primary">跳转到LayUI界面</button>
-            <button type="button" class="btn btn-success">（成功）Success</button>
+            <button type="button" onclick="window.location.href='/customer/logOut'" class="btn btn-success">退出系统</button>
             <button type="button" class="btn btn btn-info">（成功）Success</button>
         </div>
     </div>
+
+
+    Welcome<br/>
+    <div id="visitorNum"></div>
+    <input id="text" type="text" /><button onclick="send()">Send</button>    <button onclick="closeWebSocket()">Close</button>
+    <div id="message"></div>
+
 </body>
 
 <!-- jQuery文件.务必在bootstrap.min.js 之前引入 -->
 <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<script type="text/javascript">
+    var websocket = null;
+
+    //判断当前浏览器是否支持WebSocket
+    if ('WebSocket' in window) {
+        onlinenum = new WebSocket("ws://localhost:8680/webSocket");
+    } else {
+        alert('Not support websocket')
+    }
+
+    //连接发生错误的回调方法
+    onlinenum.onerror = function () {
+        setMessageInnerHTML("error");
+    };
+
+    //连接成功建立的回调方法
+    onlinenum.onopen = function (event) {
+        setMessageInnerHTML("open");
+    };
+
+    //接收到消息的回调方法
+    onlinenum.onmessage = function (event) {
+        setMessageInnerHTML(event.data);
+    };
+
+    //连接关闭的回调方法
+    onlinenum.onclose = function () {
+        setMessageInnerHTML("close");
+    };
+
+    //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+    window.onbeforeunload = function () {
+        onlinenum.close();
+    };
+
+    //将消息显示在网页上
+    function setMessageInnerHTML(textHtml) {
+        console.log("收到了消息-"+textHtml);
+        if(textHtml.indexOf("visitorsNum") != -1){
+            document.getElementById('visitorsNum').innerHTML = textHtml;
+        }else {
+            document.getElementById('message').innerHTML += textHtml + '<br/>';
+        }
+    }
+
+    //关闭连接
+    function closeWebSocket() {
+        console.log("关闭websocket连接")
+        onlinenum.close();
+    }
+
+    //发送消息
+    function send() {
+        var message = document.getElementById('text').value;
+        onlinenum.send(message);
+    }
+</script>
 
 </body>
 </html>

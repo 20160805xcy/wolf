@@ -13,6 +13,6 @@
 </head>
 <body>
 <%--<script>window.location.href='/customer/toListAllCustomer';</script>--%>
-<script>window.location.href='/wolf/customer/toLogIn';</script>
+<script>window.location.href='/customer/toLogIn';</script>
 </body>
 </html>
