@@ -9,10 +9,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--引入jstl--%>
-<%@include file="common/tag.jsp"%>
+<%@include file="common/tag.jsp" %>
 <html lang="en">
 <head>
-    <%@include file="common/head.jsp"%>
+    <%@include file="common/head.jsp" %>
     <title>客户列表页</title>
 </head>
 <body>
@@ -66,10 +66,10 @@
                             </a>
                         </li>
                         <li><a id="homePage" href="/customer/aa?rows=4">1</a></li>
-                        <li class="active"><a >${pageNum}</a></li>
+                        <li class="active"><a>${pageNum}</a></li>
                         <li><a id="lastPage" href="/customer/aa?rows=4&page=+${pages}+">${pages}</a></li>
                         <li>
-                            <a id="nextPage" href="/customer/aa?rows=4&page=+${pageNum+1}+"  aria-label="Next">
+                            <a id="nextPage" href="/customer/aa?rows=4&page=+${pageNum+1}+" aria-label="Next">
                                 <span aria-hidden="true">下一页</span>
                             </a>
                         </li>
@@ -78,8 +78,10 @@
             </div>
         </div>
         <div class="panel panel-default">
-            <button type="button" onclick="window.location.href='/layUI/goLayUI'" class="btn btn-primary">跳转到LayUI界面</button>
-            <button type="button" onclick="window.location.href='/customer/logOut'" class="btn btn-success">退出系统</button>
+            <button type="button" onclick="window.location.href='/layUI/goLayUI'" class="btn btn-primary">跳转到LayUI界面
+            </button>
+            <button type="button" onclick="window.location.href='/customer/logOut'" class="btn btn-success">退出系统
+            </button>
             <button type="button" class="btn btn btn-info">（成功）Success</button>
         </div>
     </div>
@@ -87,8 +89,11 @@
 
     Welcome<br/>
     <div id="visitorNum"></div>
-    <input id="text" type="text" /><button onclick="send()">Send</button>    <button onclick="closeWebSocket()">Close</button>
+    <input id="text" type="text"/>
+    <button onclick="send()">Send</button>
+    <button onclick="closeWebSocket()">Close</button>
     <div id="message"></div>
+</div>
 
 </body>
 
@@ -135,10 +140,10 @@
 
     //将消息显示在网页上
     function setMessageInnerHTML(textHtml) {
-        console.log("收到了消息-"+textHtml);
-        if(textHtml.indexOf("visitorsNum") != -1){
+        console.log("收到了消息-" + textHtml);
+        if (textHtml.indexOf("visitorsNum") != -1) {
             document.getElementById('visitorsNum').innerHTML = textHtml;
-        }else {
+        } else {
             document.getElementById('message').innerHTML += textHtml + '<br/>';
         }
     }
